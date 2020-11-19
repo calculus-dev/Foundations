@@ -1,0 +1,34 @@
+{
+    "name": "foundations",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": ">=0.9.0-pre.1"
+    },
+    "publisher": "Calculus",
+    "contributes": {
+        "languages": [
+            {
+                "id": "foundations",
+                "aliases": [
+                    "Foundations",
+                    "foundations",
+                    "Foundation",
+                    "foundation"
+                ],
+                "extensions": [
+                    ".fsa"
+                ]
+            }
+        ],
+        "grammars": [
+            {
+                "language": "Foundations",
+                "scopeName": "source.foundations",
+                "path": "./syntaxes/foundations.json"
+            }
+        ]
+    },
+    "dependencies": {
+        "fs": "0.0.2"
+    }
+}
