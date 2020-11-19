@@ -35,4 +35,5 @@ else {
 ```
 
 ## Tools Used:
-Lexer: https://github.com/aaditmshah/lexer
+PEG: https://github.com/harc/ohm
+\- Installation := npm i -g ohm-js 
