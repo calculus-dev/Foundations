@@ -1,0 +1,6 @@
+a = "b";
+b = "c";
+f(print) = (t) => {
+    log(t)
+}
+print(a)
