@@ -11,12 +11,12 @@ const file = fs.readFileSync('main.fps').toString()
 
 const runFile = inputFile => {
     // Split the file into manageable chunks
-    inputFile = inputFile.split("\n")
+    inputFile = inputFile.replace(/\r/g, '').split('\n')
 
     // For each line of code...
     for (i = 0; i < inputFile.length; i++) {
         // ...check for vars...
-        if (inputFile[i].includes("let")) {
+        if (inputFile[i].startsWith("let")) {
             let tempFile = inputFile[i].split(" = ")
             tempFile[0] = tempFile[0].replace(
                 "let ", 
@@ -38,16 +38,13 @@ const runFile = inputFile => {
 
                 // ...and the value is not a string...
                 else {
-                    // ...for each item in the variables array...
-                    for (x = 0; x < variables.length; x++) {
-                        var index = variables[x].indexOf(tempFile[1]) + 1
-                        var thingToAppend = variables[x][index]
-                    }
+                    // find the variable mentioned
+                    const found = variables.find(([x]) => x === tempFile[1]);
                     // push
-                    variables.push(
+                    if (found) variables.push(
                         [
-                            tempFile[i],
-                            thingToAppend
+                            tempFile[0],
+                            found[1]
                         ]
                     )
                 }
@@ -78,22 +75,11 @@ const runFile = inputFile => {
 
 
         // ...check for print statements...
-        if (inputFile[i].includes("println")) {
-            // Initialize the tempFile var, removing the println()
-            let tempFile = inputFile[i].replace(
-                "println(\"", 
-                ""
-            )
-            tempFile = tempFile.replace(
-                "\")", 
-                ""
-            )
-
-            // Print out whatever was inside the print
-            console.log(tempFile)
+        const print = inputFile[i].match(/^println\(([^)]+)\)$/);
+        if (print) {
+            console.log(print[1].match(/^"([^"]+)"$/)?.[1] || variables.find(([x]) => x === print[1]))
         }
     }
 }
 
 runFile(file)
-console.log(variables)
