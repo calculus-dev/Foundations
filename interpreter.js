@@ -1,11 +1,8 @@
-// ========================================================================== //
-// INTERPRETER.js                                                             //
-// ========================================================================== //
-//                                                                            //
-// Several improvements have been made over ProXon (the rough draft of this   //
-// language), the biggest being the leaving out of regexes.                   //
-//                                                                            //
-// ========================================================================== //
+/**========================================================================
+ *                           INTERPRETER.js
+ * 
+ * an extremely improved interpreter for the Foundations programming language
+ *========================================================================**/
 
 let variables = []
 
@@ -25,9 +22,12 @@ const runFile = inputFile => {
                 "let ", 
                 ""
             )
-
+            
+            // as long as the variable declaration does not contain a space...
             if (tempFile[0].includes(" ") == false) {
+                // ...and the value is a string...
                 if (tempFile[1].includes("\"")) {
+                    // ...then push the value and declaration to the array...
                     variables.push(
                         [
                             tempFile[0], 
@@ -35,24 +35,21 @@ const runFile = inputFile => {
                         ]
                     )
                 }
-                // This is where I leave off. Here is my roadblock:
-                // What I want to do is replace the goodbye variable with
-                // "Hi there!" (so I want to have one variable point to 
-                // another variable). I am not sure how else to explain
-                // this, so DM me if you need better explanation.
-                // It is probably obvious, but I am sleepy.
-                else {
-                    for (x = 0; x < variables.length; x++) {
-                        let index = variables[x].indexOf(tempFile[1].toString())
-                        let thingToAppend = variables[x][index]
 
-                        // variables.push(
-                        //     [
-                        //         tempFile[0],
-                        //         thingToAppend.exit
-                        //     ]
-                        // )
+                // ...and the value is not a string...
+                else {
+                    // ...for each item in the variables array...
+                    for (x = 0; x < variables.length; x++) {
+                        var index = variables[x].indexOf(tempFile[1]) + 1
+                        var thingToAppend = variables[x][index]
                     }
+                    // push
+                    variables.push(
+                        [
+                            tempFile[i],
+                            thingToAppend
+                        ]
+                    )
                 }
             }
             else {
