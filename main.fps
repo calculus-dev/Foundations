@@ -1,0 +1,5 @@
+let hello = "Hi there!"
+let goodbye = hello
+println("Hi")
+println(hello)
+println(goodbye)
