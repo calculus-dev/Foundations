@@ -12,7 +12,7 @@ let c = a;
 // Variables with math have the ": math" attached to them
 let wannaDoMath: math = 1 + 2 - 3 * 4 / 5 ** 6 % 7
 
-method d:(e, f) {
+method d(e, f) {
     println(e)
     return f
 }
@@ -34,5 +34,5 @@ else {
 }
 ```
 
-**Tools Used:**
+## Tools Used:
 Lexer: https://github.com/aaditmshah/lexer
