@@ -4,7 +4,7 @@
  * an interpreter for the Foundations programming language
  *========================================================================**/
 
-let variables = []
+const variables = {}
 
 const fs = require('fs')
 const file = fs.readFileSync('main.fps').toString()
@@ -28,25 +28,15 @@ const runFile = inputFile => {
                 // ...and the value is a string...
                 if (tempFile[1].includes("\"")) {
                     // ...then push the value and declaration to the array...
-                    variables.push(
-                        [
-                            tempFile[0], 
-                            tempFile[1]
-                        ]
-                    )
+                    variables[tempFile[0]] = tempFile[1];
                 }
 
                 // ...and the value is not a string...
                 else {
                     // find the variable mentioned
-                    const found = variables.find(([x]) => x === tempFile[1]);
-                    // push
-                    if (found) variables.push(
-                        [
-                            tempFile[0],
-                            found[1]
-                        ]
-                    )
+                    const found = Object.entries(variables).find(([x]) => x === tempFile[1]);
+                    // push/save the variable
+                    if (found) variables[tempFile[0]] = found[1];
                 }
             }
             else {
@@ -63,21 +53,31 @@ const runFile = inputFile => {
 
 
         // ...replace variables...
-        for (x = 0; x < variables.length; x++) {
-            if (inputFile[i].includes(variables[x]).toString) {
+        for (var x in variables) {
+            if (inputFile[i].includes(x).toString) {
                 inputFile[i] = inputFile[i].replace(
-                    variables[x][0],
-                    variables[x][1]
+                    x,
+                    variables[x]
                 )
             }
         }
 
 
-
         // ...check for print statements...
-        const print = inputFile[i].match(/^println\(([^)]+)\)$/);
+        const print = inputFile[i].match(/^print\(([^)]+)\)$/);
         if (print) {
-            console.log(print[1].match(/^"([^"]+)"$/)?.[1] || variables.find(([x]) => x === print[1]))
+            if (print[1].includes("\"")) {
+                var concat = print[1].split(/"/);
+                if (concat[2]) {
+                    for (var x in concat) {
+                        if (concat[x].includes("+")) {
+                            delete concat[x];
+                        }
+                    }
+                    print[1] = "\"" + concat.join("") + "\"";
+                }
+            }
+            console.log(print[1].match(/^"([^"]+)"$/)?.[1] || Object.entries(variables).find(([x]) => x === print[1]))
         }
     }
 }
