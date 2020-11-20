@@ -1,5 +1,5 @@
-let hello = "Hi there!"
-let goodbye = hello
-println("Hi")
-println(hello)
-println(goodbye)
+let hello = "Hello"
+let world = "World!"
+print("Hi")
+print(hello + " " + world)
+print("goodbye")
