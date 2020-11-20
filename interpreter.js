@@ -1,7 +1,7 @@
 /**========================================================================
  *                           INTERPRETER.js
  * 
- * an extremely improved interpreter for the Foundations programming language
+ * an interpreter for the Foundations programming language
  *========================================================================**/
 
 let variables = []
