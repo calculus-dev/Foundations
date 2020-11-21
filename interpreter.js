@@ -4,6 +4,7 @@
  * an interpreter for the Foundations programming language
  *========================================================================**/
 
+const constants = {}
 const variables = {}
 
 const fs = require('fs')
@@ -48,6 +49,49 @@ const runFile = inputFile => {
                 console.log(errMsg)
                 return errMsg
             }
+        } else if (inputFile[i].startsWith("final")) {
+            let tempFile = inputFile[i].split(" = ")
+            tempFile[0] = tempFile[0].replace(
+                "final ", 
+                ""
+            )
+            
+            // as long as the variable declaration does not contain a space...
+            if (tempFile[0].includes(" ") == false) {
+                // ...and the value is a string...
+                if (tempFile[1].includes("\"")) {
+                    // ...then push the value and declaration to the array...
+                    constants[tempFile[0]] = tempFile[1];
+                } else { // ...and the value is not a string...
+                    // find the variable mentioned
+                    const found = Object.entries(constants).find(([x]) => x === tempFile[1]);
+                    // push/save the variable
+                    if (found) constants[tempFile[0]] = found[1];
+                }
+            } else {
+                // errMsg is standard for an error message
+                errMsg = `ERROR PARSING VARIABLE ON LINE ${i + 1} :=> 
+                SPACES NOT ALLOWED IN VARIABLE DECLARATIONS`
+
+                // Both end the function and print out the error message
+                console.error(errMsg)
+                return errMsg
+            }
+        } else {
+            // If a variable is being redefined...
+            if (inputFile[i].includes("=")) {
+                let tempFile = inputFile[i].split(" = ");
+                // ... Checking if said variable is a constant...
+                for (var x in constants) {
+                    if (tempFile[0] === x) {
+                        // ...returning an error...
+                        errMsg = `Error: Assignment to constant variable on line ${i + 1}`;
+
+                        console.error(errMsg);
+                        return errMsg
+                    }
+                }
+            }
         }
 
 
@@ -55,12 +99,23 @@ const runFile = inputFile => {
         // ...replace variables...
         for (var x in variables) {
             if (inputFile[i].includes(x).toString) {
-                inputFile[i] = inputFile[i].replace(
-                    x,
-                    variables[x]
-                )
+                if (!inputFile[i].startsWith("let ")) {
+                    inputFile[i] = inputFile[i].replace(x, variables[x]);
+                }
             }
         }
+
+
+
+        // ...replace variables...
+        for (var x in constants) {
+            if (inputFile[i].includes(x).toString) {
+                if (!inputFile[i].startsWith("final ")) {
+                    inputFile[i] = inputFile[i].replace(x, constants[x]);
+                }
+            }
+        }
+
 
 
         // ...check for print statements...
