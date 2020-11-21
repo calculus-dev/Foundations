@@ -23,13 +23,13 @@ let c = a;
 final variable = "This is a final variable!";
 
 method d(e, f) {
-    println(e)
+    print(e)
     return f
 }
 
 if (d(a, c) == "b") {
     for (x < 13; x++) {
-        println(x)
+        print(x)
     }
 }
 
