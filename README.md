@@ -35,12 +35,12 @@ if (d(a, c) == "b") {
 
 elif (d(a, c) == "c") {
     for (x > -12; x--) {
-        println(x)
+        print(x)
     }
 } 
 
 else {
-    println("Sorry! #{a} was not good enough.")
+    print("Sorry! #{a} was not good enough.")
 }
 ```
 
