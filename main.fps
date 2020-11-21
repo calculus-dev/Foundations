@@ -9,3 +9,12 @@ method d(t, e, i, s) {
 }
 
 d("World!", "is Calculus!", "Hello")
+
+/*
+
+Expected output:
+
+Hello World!
+Hello World! is Calculus!
+
+*/
