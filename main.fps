@@ -1,15 +1,21 @@
 let hello = "Hello"
 let world = "World!"
-final a = "b"
-print(hello + " " + world)
-#print(a)
+final a = " Crazy right?"
+print(hello + " " + world + a)
 
-method d(t, e, i, s) {
-    print(i + " " + t + " " + e)
+method d(t, e, i) {
+    if (false) {
+        print(i + " " + t + " " + e + a)
+    } else if (false) {
+        print(t + " " + i)
+    } else {
+        print(i + " " + t)
+    }
 }
 
 d("World!", "is Calculus!", "Hello")
 
 # Expected output:
+# Hello World! Crazy right?
+# World! Hello
 # Hello World!
-# Hello World! is Calculus!
