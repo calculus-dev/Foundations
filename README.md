@@ -19,8 +19,8 @@ is deemed useful by the team.
 let a = "b";
 let c = a;
 
-// variables with math/numbers are declared with the math keyword rather than let.
-math wannaDoMath = 1 + 2 - 3 * 4 / 5 ** 6 % 7
+// The final keyword is used to define constant variables. Constant variables cannot be changed/redefined.
+final variable = "This is a final variable!";
 
 method d(e, f) {
     println(e)
