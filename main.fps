@@ -1,5 +1,11 @@
 let hello = "Hello"
 let world = "World!"
-print("Hi")
+final a = "b"
 print(hello + " " + world)
-print("goodbye")
+#print(a)
+
+method d(t, e, i, s) {
+    print(i + " " + t + " " + e)
+}
+
+d("World!", "is Calculus!", "Hello")
