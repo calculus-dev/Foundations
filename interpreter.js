@@ -33,6 +33,10 @@ const runFile = (inputFile, parameters) => {
     for (i = 0; i < inputFile.length; i++) {
         inputFile[i] = inputFile[i].replace("    ", "")
         
+        if (inputFile[i].startsWith("#")) {
+            continue;
+        }
+
         if (skipLine) {
             if (inputFile[i].includes("else")) {
                 skipLine = null;
@@ -40,7 +44,7 @@ const runFile = (inputFile, parameters) => {
                 continue;
             }
         }
-        
+
         if (!!isInObject) {
             if (inputFile[i].includes("}")) {
                 if (objects === 0) {
@@ -69,15 +73,10 @@ const runFile = (inputFile, parameters) => {
                     methods[x].execute.push(inputFile[i]);
                 }
             }
-
-            continue;
         }
         
         // ...check for vars...
-        if (inputFile[i].startsWith("#")) {
-            continue;
-        }
-        else if (inputFile[i].startsWith("let")) {
+        if (inputFile[i].startsWith("let")) {
             let tempFile = inputFile[i].split(" = ")
             tempFile[0] = tempFile[0].replace(
                 "let ", 
