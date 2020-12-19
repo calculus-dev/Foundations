@@ -14,12 +14,12 @@ is deemed useful by the team.
 
 **Possible Syntax:**
 ```js
-// comments
+# comments
 
 let a = "b";
 let c = a;
 
-// The final keyword is used to define constant variables. Constant variables cannot be changed/redefined.
+# The final keyword is used to define constant variables. Constant variables cannot be changed/redefined.
 final variable = "This is a final variable!";
 
 method d(e, f) {
